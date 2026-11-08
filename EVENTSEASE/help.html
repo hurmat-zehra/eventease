@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Help | Event Ease</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <script src="supabase-config.js" defer></script>
+  <style>
+    body {
+      font-family: 'Quicksand', sans-serif;
+      background: #f9f8f3;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+
+    header {
+    background: #A0C878;
+    color: white;
+    padding: 0.5rem 1rem; /* Reduced padding */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .logo {
+    font-size: 1.5rem; /* Slightly smaller font size */
+    font-family: 'Segoe UI', sans-serif;
+    font-weight: 700;
+    color: white;
+    text-transform: uppercase;
+  }
+
+  /* 🌿 Navbar Styling */
+  nav.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    width: 80%; /* Reduced width */
+    margin: 0 auto;
+    padding: 1rem 1.5rem; /* Reduced padding */
+    background: #FFFDF6;
+    border-radius: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    border: 1px solid #eee8dc;
+    font-family: 'Segoe UI', sans-serif;
+  }
+
+  .nav-left a,
+  .nav-right a {
+    margin: 0 0.5rem; /* Reduced margin */
+    text-decoration: none;
+    padding: 0.5rem 1rem; /* Reduced padding */
+    border-radius: 8px;
+    transition: background 0.3s ease, color 0.3s ease;
+    font-weight: 500;
+    color: #4a4a4a;
+    display: inline-block;
+  }
+
+  .nav-left a:hover,
+  .nav-right a:hover {
+    background: #DDEB9D;
+    color: #1f3b08;
+  }
+
+
+    .form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .form input, .form textarea {
+      padding: 12px 14px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 15px;
+      background-color: #f4f4f4;
+    }
+
+    .form button {
+      background-color: #a0c878;
+      color: white;
+      padding: 12px 16px;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      align-self: flex-start;
+      transition: background 0.3s;
+    }
+
+    .form button:hover {
+      background-color: #8db464;
+    }
+
+    .success-message {
+      color: green;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <h1 class="logo">Event Ease</h1>
+    <nav class="navbar">
+      <div class="nav-left">
+        <a href="index.html">Home</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="chatroom.html">Chatroom</a>
+        <a href="polls.html">Polls</a>
+        <a href="faq.html">FAQ</a>
+        <a href="help.html">Help</a>
+      </div>
+      <div class="nav-right">
+        <a href="login.html" class="login-button">HOD Login</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="section">
+    <h2>Need Help?</h2>
+    <p>Email us at <a href="mailto:eventsmadeeasy4all@gmail.com">support@eventease.com</a></p>
+
+    <form class="form" id="help-form">
+      <input type="text" id="name" placeholder="Your name" required />
+      <input type="email" id="email" placeholder="Your email" required />
+      <textarea id="message" placeholder="How can we help you?" required></textarea>
+      <button type="submit">Submit</button>
+      <div class="success-message" id="success-msg"></div>
+    </form>
+  </main>
+
+  <script>
+    const helpForm = document.getElementById('help-form');
+    const successMsg = document.getElementById('success-msg');
+
+    helpForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const message = document.getElementById('message').value.trim();
+
+      const { error } = await supabase
+        .from('help_requests')
+        .insert([{ name, email, message }]);
+
+      if (error) {
+        alert('Error submitting help request: ' + error.message);
+      } else {
+        successMsg.textContent = "✅ Help request submitted successfully!";
+        helpForm.reset();
+      }
+    });
+  </script>
+</body>
+</html>

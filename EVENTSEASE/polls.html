@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Polls | Event Ease</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+    <script src="supabase-config.js"></script>
+    <script src="script.js" defer></script>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        background: #fffdf6;
+        color: #333;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        line-height: 1.6;
+      }
+
+      .section {
+        padding: 4rem 2rem;
+        text-align: center;
+        flex: 1;
+        background: #faf6e9;
+        border-top: 2px solid #a0c878;
+      }
+
+      h2 {
+        font-size: 2.2rem;
+        color: #34495e;
+        margin-bottom: 2rem;
+        font-weight: 700;
+        text-transform: capitalize;
+      }
+
+      .poll-box {
+        background: #fff;
+        padding: 2.5rem 3rem;
+        border-radius: 12px;
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 500px;
+        margin: 0 auto;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        text-align: left;
+      }
+
+      .poll-box:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+      }
+
+      .poll-options {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        justify-content: center;
+        margin-top: 1rem;
+      }
+
+      .poll-options label {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 1.1rem;
+        color: #34495e;
+        font-weight: 500;
+        cursor: pointer;
+        background: #f9f9f9;
+        padding: 0.6rem 1rem;
+        border-radius: 8px;
+        border: 1px solid #ddd;
+        transition: background 0.2s;
+      }
+
+      .poll-options label:hover {
+        background: #f0f0f0;
+      }
+
+      .poll-options input[type="radio"] {
+        accent-color: #a0c878;
+        transform: scale(1.3);
+      }
+
+      .poll-options button {
+        background: #a0c878;
+        color: white;
+        border: none;
+        padding: 1rem 2rem;
+        border-radius: 25px;
+        font-size: 1.2rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background 0.3s ease, transform 0.3s ease;
+        width: 100%;
+        margin-top: 2rem;
+      }
+
+      .poll-options button:hover {
+        background: #ddeb9d;
+        transform: scale(1.05);
+      }
+
+      #poll-results {
+        margin-top: 2rem;
+        background: #fefefe;
+        border: 1px solid #eee;
+        border-radius: 10px;
+        padding: 1rem 1.5rem;
+        text-align: left;
+      }
+
+      #poll-results ul {
+        list-style: none;
+        padding: 0;
+      }
+
+      #poll-results li {
+        margin-bottom: 0.8rem;
+        font-size: 1.05rem;
+      }
+
+      footer {
+        padding: 1.5rem;
+        text-align: center;
+        background: #34495e;
+        color: white;
+        font-size: 0.95rem;
+        letter-spacing: 0.5px;
+        border-top: 1px solid #a0c878;
+        margin-top: auto;
+      }
+
+      @media (max-width: 768px) {
+        .section {
+          padding: 3rem 1.5rem;
+        }
+
+        .poll-box {
+          padding: 1.8rem;
+        }
+
+        h2 {
+          font-size: 1.8rem;
+        }
+
+        .poll-options button {
+          font-size: 1rem;
+          padding: 0.8rem 1.6rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <h1 class="logo">Event Ease</h1>
+      <nav class="navbar">
+        <div class="nav-left">
+          <a href="index.html">Home</a>
+          <a href="gallery.html">Gallery</a>
+          <a href="chatroom.html">Chatroom</a>
+          <a href="polls.html">Polls</a>
+          <a href="faq.html">FAQ</a>
+          <a href="help.html">Help</a>
+        </div>
+        <div class="nav-right">
+          <a href="login.html" class="login-button">HOD Login</a>
+        </div>
+      </nav>
+    </header>
+
+    <section class="section" id="polls">
+      <h2>🗳️ Cast Your Vote</h2>
+      <div class="poll-box">
+        <p style="font-size: 1.1rem; margin-bottom: 15px">
+          What type of events do you enjoy the most?
+        </p>
+        <form class="poll-options" id="poll-form">
+          <label>
+            <input type="radio" name="poll" value="Technical" />
+            🎓 Technical
+          </label>
+          <label>
+            <input type="radio" name="poll" value="Cultural" />
+            🎭 Cultural
+          </label>
+          <label>
+            <input type="radio" name="poll" value="Entrepreneurial" />
+            💡 Entrepreneurial
+          </label>
+          <label>
+            <input type="radio" name="poll" value="Sports" />
+            ⚽ Sports
+          </label>
+          <button type="submit" id="vote-btn">Submit Vote</button>
+        </form>
+
+        <div id="poll-results"></div>
+      </div>
+    </section>
+
+    <footer>
+      <p>&copy; 2025 Event Ease. All rights reserved.</p>
+    </footer>
+
+    <!-- Supabase JS and Config -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+    <script src="supabase-config.js"></script>
+    <script>
+      const pollForm = document.getElementById("poll-form");
+      const voteBtn = document.getElementById("vote-btn");
+
+      const renderResults = async () => {
+        const { data, error } = await supabase.from("polls").select("choice");
+
+        if (error) {
+          console.error("Failed to fetch poll results:", error);
+          return;
+        }
+
+        const counts = {
+          Technical: 0,
+          Cultural: 0,
+          Entrepreneurial: 0,
+          Sports: 0,
+        };
+
+        data.forEach((vote) => {
+          if (counts[vote.choice] !== undefined) {
+            counts[vote.choice]++;
+          }
+        });
+
+        const resultsContainer = document.getElementById("poll-results");
+        resultsContainer.innerHTML = `
+          <h3 style="margin: 1.5rem 0 1rem; font-size: 1.3rem;">📊 Current Results:</h3>
+          <ul>
+            ${Object.entries(counts)
+              .map(
+                ([key, val]) =>
+                  `<li><strong>${key}</strong>: ${val} vote${
+                    val !== 1 ? "s" : ""
+                  }</li>`
+              )
+              .join("")}
+          </ul>
+        `;
+      };
+
+      const checkIfVoted = () => {
+        return localStorage.getItem("hasVotedPoll") === "true";
+      };
+
+      const disableVoting = () => {
+        voteBtn.disabled = true;
+        voteBtn.innerText = "You have already voted";
+        voteBtn.style.background = "#ccc";
+        voteBtn.style.cursor = "not-allowed";
+      };
+
+      pollForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        if (checkIfVoted()) {
+          alert("You have already voted.");
+          return;
+        }
+
+        const option = document.querySelector(
+          'input[name="poll"]:checked'
+        )?.value;
+
+        if (!option) {
+          alert("Please select an option before voting.");
+          return;
+        }
+
+        const { error } = await supabase
+          .from("polls")
+          .insert([{ choice: option }]);
+
+        if (error) {
+          alert("Error submitting your vote.");
+          console.error(error);
+          return;
+        }
+
+        localStorage.setItem("hasVotedPoll", "true");
+        disableVoting();
+        alert("Thank you for voting!");
+        renderResults();
+      });
+
+      // Init on page load
+      window.addEventListener("DOMContentLoaded", () => {
+        if (checkIfVoted()) disableVoting();
+        renderResults();
+      });
+    </script>
+  </body>
+</html>

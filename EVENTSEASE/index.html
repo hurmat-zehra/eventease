@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Event Ease - Home</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+    <script src="supabase-config.js" defer></script>
+    <script src="script.js" defer></script>
+
+    <style>
+      body {
+        margin: 0;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: url("trial.jpg")
+          no-repeat center center fixed;
+        background-size: cover;
+        color: rgb(189, 249, 189);
+      }
+
+      .custom-header,
+      .custom-section,
+      .custom-footer {
+        background-color: rgba(0, 0, 0, 0.6);
+      }
+
+      .logo-container {
+        display: flex;
+        align-items: center;
+        padding: 15px 20px;
+      }
+
+      .logo-img {
+        width: 100px;
+        height: 80px;
+        margin-right: 10px;
+      }
+
+      .logo-text {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #fff;
+      }
+
+      .custom-navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+      }
+
+      .nav-left a,
+      .nav-right a {
+        color: #e5ffe5;
+        margin: 0 10px;
+        text-decoration: none;
+        font-weight: bold;
+      }
+
+      .nav-left a:hover,
+      .nav-right a:hover {
+        text-decoration: underline;
+      }
+
+      .custom-section {
+        padding: 40px;
+        margin: 20px;
+        border-radius: 12px;
+      }
+
+      .custom-section h2 {
+        color: white;
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      .custom-card-container {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+
+      @media (min-width: 750px) {
+        .custom-card-container {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      
+
+      .card-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 30px;
+      }
+
+      .modal-content {
+        background-color: #222;
+        padding: 70px;
+        border-radius: 8px;
+        color: #fff;
+      }
+
+      input,
+      button {
+        display: block;
+        width: 100%;
+        padding: 20px;
+        margin: 10px 30;
+      }
+
+      button {
+        background-color: #ff5e57;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #e14c46;
+      }
+
+
+      .custom-footer {
+        padding: 20px;
+        margin-top: 40px;
+      }
+
+      .footer-container {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+      }
+
+      .footer-section,
+      .contact-info,
+      .quote-section h3 {
+        font-size: large;
+      }
+
+      .footer-section,
+      .contact-info,
+      .quote-section {
+        flex: 1 1 30%;
+        margin: 10px;
+        color: white;
+      }
+
+      .footer-bottom {
+        text-align: center;
+        margin-top: 20px;
+        font-size: 0.9rem;
+        color: #ccc;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header class="custom-header">
+      <div class="logo-container">
+        <img src="images/Logo.jpg" alt="Event Ease Logo" class="logo-img" />
+        <h1 class="logo-text">Event Ease</h1>
+      </div>
+      <nav class="custom-navbar">
+        <div class="nav-left">
+          <a href="index.html">Home</a>
+          <a href="gallery.html">Gallery</a>
+          <a href="chatroom.html">Chatroom</a>
+          <a href="polls.html">Polls</a>
+          <a href="faq.html">FAQ</a>
+          <a href="help.html">Help</a>
+        </div>
+        <div class="nav-right">
+          <a href="login.html" class="login-button">HOD Login</a>
+        </div>
+      </nav>
+    </header>
+
+    <main class="custom-section">
+      <h2>Upcoming Events</h2>
+      <div id="event-list" class="custom-card-container"></div>
+      <div id="registration-modal" class="modal hidden">
+        <div class="modal-content">
+          <span id="close-modal" class="close-btn">&times;</span>
+          <h3>Register for <span id="modal-event-name"></span></h3>
+          <form id="register-form" class="form">
+            <input type="text" id="reg-name" placeholder="Your Name" required />
+            <input
+              type="email"
+              id="reg-email"
+              placeholder="Your Email"
+              required
+            />
+            <input type="hidden" id="reg-event" />
+            <button type="submit">Submit Registration</button>
+          </form>
+        </div>
+      </div>
+    </main>
+
+    </main>
+
+    <footer class="custom-footer">
+      <div class="footer-container">
+        <div class="footer-section">
+          <h3>PAGES</h3>
+          <ul>
+            <li>Home</li>
+            <li>Gallery</li>
+            <li>Chatroom</li>
+            <li>Polls</li>
+            <li>FAQ</li>
+            <li>Help</li>
+          </ul>
+        </div>
+
+        <div class="contact-info">
+          <h3>CONTACT</h3>
+          <p>Email: eventsmadeeasy4all@gmail.com</p>
+        </div>
+
+        <div class="quote-section">
+          <h3>EVENT EASE</h3>
+          <p>
+            "Great events don’t just happen — they’re carefully curated
+            experiences."
+          </p>
+          <p>
+            <strong>Event Ease</strong> is your partner in turning ideas into unforgettable moments.
+          </p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">© 2025 Event Ease. All rights reserved.</div>
+    </footer>
+  </body>
+</html>

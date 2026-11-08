@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>FAQ | Event Ease</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .faq-item { margin: 1rem 0; cursor: pointer; }
+    .faq-answer { display: none; padding-left: 1rem; }
+    .faq-item.active .faq-answer { display: block; }
+    
+  </style>
+</head>
+<body>
+  <header class="header">
+    <h1 class="logo">Event Ease</h1>
+    <nav class="navbar">
+      <div class="nav-left">
+        <a href="index.html">Home</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="chatroom.html">Chatroom</a>
+        <a href="polls.html">Polls</a>
+        <a href="faq.html">FAQ</a>
+        <a href="help.html">Help</a>
+      </div>
+      <div class="nav-right">
+        <a href="login.html" class="login-button">HOD Login</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="section">
+    <div class="faq-item"><h3>How do I join an event?</h3><p class="faq-answer">Check the Events page and follow the registration link.</p></div>
+    <div class="faq-item"><h3>Who can create events?</h3><p class="faq-answer">Only HODs with valid login credentials.</p></div>
+    <div class="faq-item"><h3>Can I upload event photos?</h3><p class="faq-answer">Only HODs can upload official images via the dashboard.</p></div>
+    <div class="faq-item"><h3>Is there a fee to attend events?</h3><p class="faq-answer">Most events are free for students, but some may require a registration fee.</p></div>
+    <div class="faq-item"><h3>Can I edit my registration details?</h3><p class="faq-answer">Yes, you can edit your registration from your profile before the event deadline.</p></div>
+    <div class="faq-item"><h3>How do I contact the event organizer?</h3><p class="faq-answer">Contact details are available on each event’s page.</p></div>
+    <div class="faq-item"><h3>Can I participate in multiple events?</h3><p class="faq-answer">Yes, as long as the event timings don’t clash.</p></div>
+    <div class="faq-item"><h3>Where can I see past event highlights?</h3><p class="faq-answer">Visit the Gallery section to see images and highlights from past events.</p></div>
+    <div class="faq-item"><h3>What is the Chatroom used for?</h3><p class="faq-answer">It’s used for student discussions and event-related interactions.</p></div>
+    <div class="faq-item"><h3>How do I vote in event polls?</h3><p class="faq-answer">Go to the Polls page, log in with your credentials, and submit your vote.</p></div>
+  </main>
+
+  <script>
+    document.querySelectorAll('.faq-item').forEach(item => {
+      item.addEventListener('click', () => item.classList.toggle('active'));
+    });
+  </script>
+</body>
+</html>

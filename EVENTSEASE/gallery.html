@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Event Ease - Gallery</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background: #f9f9f9;
+      color: #333;
+    }
+
+    header {
+      background: #A0C878;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+
+    nav.navbar {
+      background: #FFFDF6;
+      border-radius: 12px;
+      padding: 0.6rem 1.2rem;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      flex-wrap: wrap;
+    }
+
+    .nav-left, .nav-right {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .nav-left a, .nav-right a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .nav-left a:hover, .nav-right a:hover {
+      background: #DDEB9D;
+      color: #1f3b08;
+    }
+
+    .section {
+      padding: 2rem;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .controls {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .controls button {
+      background: #A0C878;
+      color: white;
+      border: none;
+      padding: 0.6rem 1.2rem;
+      margin: 0.3rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s, transform 0.3s;
+    }
+
+    .controls button i {
+      margin-right: 0.5rem;
+    }
+
+    .controls button:hover {
+      background: #88b261;
+      transform: scale(1.05);
+    }
+
+    .event-section {
+      margin-bottom: 3rem;
+      display: none;
+      opacity: 0;
+      transform: scale(0.98);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+
+    .event-section.active {
+      display: block;
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .event-title {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      border-left: 5px solid #4a4a4a;
+      padding-left: 10px;
+      color: #222;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+
+    .event-title:hover {
+      color: #A0C878;
+    }
+
+    .event-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .event-gallery img,
+    .event-gallery .video-card {
+      width: 100%;
+      border-radius: 10px;
+      object-fit: cover;
+    }
+
+    .event-gallery img {
+      height: 200px;
+    }
+
+    .video-card {
+      position: relative;
+      overflow: hidden;
+      height: 200px;
+      background: #222;
+      border-radius: 10px;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .video-card:hover {
+      transform: scale(1.05);
+    }
+
+    .video-card video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    footer {
+      background: #333;
+      color: #fff;
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
+    }
+
+    @media screen and (max-width: 768px) {
+      .logo {
+        font-size: 1.3rem;
+      }
+
+      nav.navbar {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1 class="logo">Event Ease</h1>
+  </header>
+
+  <nav class="navbar">
+    <div class="nav-left">
+      <a href="index.html">Home</a>
+      <a href="ga0llery.html">Gallery</a>
+      <a href="chatroom.html">Chatroom</a>
+      <a href="polls.html">Polls</a>
+      <a href="faq.html">FAQ</a>
+      <a href="help.html">Help</a>
+    </div>
+    <div class="nav-right">
+      <a href="login.html">HOD Login</a>
+    </div>
+  </nav>
+
+  <main class="section">
+    <div class="controls">
+      <button onclick="showAll()"><i class="fas fa-eye"></i> Show All Events</button>
+    </div>
+
+    <div class="event-section active">
+      <h2 class="event-title" onclick="showOnly(this)"><i class="fas fa-spa"></i> Yoga Day Celebration</h2>
+      <div class="event-gallery">
+        <img src="images/ias.jpeg" alt="Yoga">
+        <div class="video-card"><video src="videos/yoga.mp4" controls muted></video></div>
+        <img src="images/award.jpeg" alt="Award">
+        <img src="images/teachers.jpeg" alt="Teachers">
+      </div>
+    </div>
+
+    <div class="event-section">
+      <h2 class="event-title" onclick="showOnly(this)"><i class="fas fa-palette"></i> Art & Culture Fest</h2>
+      <div class="event-gallery">
+        <div class="video-card"><video src="videos/art.mp4" controls muted></video></div>
+        <img src="images/ex.jpeg" alt="Exhibit">
+        <img src="images/traditional.jpeg" alt="Traditional">
+        <img src="images/cultural.jpeg" alt="Dance">
+      </div>
+    </div>
+
+    <div class="event-section">
+      <h2 class="event-title" onclick="showOnly(this)"><i class="fas fa-music"></i> Music Performance</h2>
+      <div class="event-gallery">
+        <img src="images/aree.jpeg" alt="Music">
+        <div class="video-card"><video src="videos/guitar.mp4" controls muted></video></div>
+        <img src="images/boys.jpeg" alt="Band">
+      </div>
+    </div>
+
+    <div class="event-section">
+      <h2 class="event-title" onclick="showOnly(this)"><i class="fas fa-heartbeat"></i> Health & Talent Showcase</h2>
+      <div class="event-gallery">
+        <img src="images/plant.jpeg" alt="Planting">
+        <img src="images/drive.jpeg" alt="Drive">
+        <div class="video-card"><video src="videos/medical.mp4" controls muted></video></div>
+        <img src="images/talent.jpeg" alt="Talent">
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Event Ease. All rights reserved.</p>
+  </footer>
+
+  <script>
+    function showOnly(clickedTitle) {
+      const allSections = document.querySelectorAll('.event-section');
+      allSections.forEach(section => section.classList.remove('active'));
+      clickedTitle.parentElement.classList.add('active');
+      window.scrollTo({ top: clickedTitle.offsetTop - 100, behavior: 'smooth' });
+    }
+
+    function showAll() {
+      const allSections = document.querySelectorAll('.event-section');
+      allSections.forEach(section => section.classList.add('active'));
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  </script>
+</body>
+</html>
